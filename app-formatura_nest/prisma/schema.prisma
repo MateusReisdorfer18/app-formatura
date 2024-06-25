@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/app-formatura"
+}
+
+model estado {
+  id      String    @id @default(uuid())
+  sigla   String
+  Turma   turma[]
+  Servico servico[]
+}
+
+model tipo_servico {
+  id      String    @id @default(uuid())
+  tipo    String
+  Servico servico[]
+}
+
+model usuario {
+  id              String            @id @default(uuid())
+  nome            String
+  login           String
+  senha           String
+  cpf             String
+  status          Boolean           @default(true)
+  isComissao      Boolean           @default(false)
+  Turma           turma[]
+  AlunosTurma     alunos_turma[]
+  Parcela         parcela[]
+  recibo          recibo[]
+  recibo_formando recibo_formando[]
+}
+
+model turma {
+  id           String         @id @default(uuid())
+  comissao     usuario?        @relation(fields: [comissao_id], references: [id])
+  comissao_id  String?
+  nome         String
+  universidade String
+  cidade       String
+  estado       estado         @relation(fields: [estado_id], references: [id])
+  estado_id    String
+  status       Boolean @default(true)
+  AlunosTurma  alunos_turma[]
+  Recibo       recibo[]
+}
+
+model alunos_turma {
+  turma_id String
+  turma    turma?   @relation(fields: [turma_id], references: [id])
+  aluno_id String
+  aluno    usuario? @relation(fields: [aluno_id], references: [id])
+
+  @@unique([turma_id, aluno_id])
+}
+
+model servico {
+  id              String           @id @default(uuid())
+  tipo            tipo_servico     @relation(fields: [tipo_id], references: [id])
+  tipo_id         String
+  empresa         String
+  observacao      String?
+  cidade          String
+  estado          estado           @relation(fields: [estado_id], references: [id])
+  estado_id       String
+  telefoneCelular String
+  telefoneFixo    String?
+  valor           Float
+  situacao        Boolean          @default(true)
+  EventoServico   evento_servico[]
+}
+
+model evento {
+  id            String           @id @default(uuid())
+  data          DateTime
+  convidados    Int
+  valor         Float
+  EventoServico evento_servico[]
+}
+
+model evento_servico {
+  evento_id  String
+  evento     evento  @relation(fields: [evento_id], references: [id])
+  servico_id String
+  servico    servico @relation(fields: [servico_id], references: [id])
+
+  @@unique([evento_id, servico_id])
+}
+
+model recibo {
+  id              String            @id @default(uuid())
+  turma           turma             @relation(fields: [turma_id], references: [id])
+  turma_id        String
+  Parcela         parcela?
+  comissao        usuario           @relation(fields: [comissao_id], references: [id])
+  comissao_id     String
+  recibo_formando recibo_formando[]
+}
+
+model recibo_formando {
+  formando_id String
+  formando    usuario @relation(fields: [formando_id], references: [id])
+  recibo_id   String
+  recibo      recibo  @relation(fields: [recibo_id], references: [id])
+
+  @@unique([formando_id, recibo_id])
+}
+
+model parcela {
+  id          String  @id @default(uuid())
+  formando    usuario @relation(fields: [formando_id], references: [id])
+  formando_id String
+  numero      Float
+  valor       Float
+  situacao    Boolean @default(false)
+  recibo      recibo  @relation(fields: [recibo_id], references: [id])
+  recibo_id   String  @unique
+}

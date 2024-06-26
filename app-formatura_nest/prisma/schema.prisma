@@ -27,30 +27,32 @@ model tipo_servico {
 }
 
 model usuario {
-  id              String            @id @default(uuid())
-  nome            String
-  login           String
-  senha           String
-  cpf             String
-  status          Boolean           @default(true)
-  isComissao      Boolean           @default(false)
-  Turma           turma[]
-  AlunosTurma     alunos_turma[]
-  Parcela         parcela[]
-  recibo          recibo[]
-  recibo_formando recibo_formando[]
+  id                    String              @id @default(uuid())
+  nome                  String
+  login                 String
+  senha                 String
+  cpf                   String
+  status                Boolean             @default(true)
+  isComissao            Boolean             @default(false)
+  Turma                 turma[]
+  AlunosTurma           alunos_turma[]
+  Parcela               parcela[]
+  recibo                recibo[]
+  recibo_formando       recibo_formando[]
+  numero_de_parcelas    numero_de_parcelas? @relation(fields: [numero_de_parcelas_id], references: [id])
+  numero_de_parcelas_id String?
 }
 
 model turma {
   id           String         @id @default(uuid())
-  comissao     usuario?        @relation(fields: [comissao_id], references: [id])
+  comissao     usuario?       @relation(fields: [comissao_id], references: [id])
   comissao_id  String?
   nome         String
   universidade String
   cidade       String
   estado       estado         @relation(fields: [estado_id], references: [id])
   estado_id    String
-  status       Boolean @default(true)
+  status       Boolean        @default(true)
   AlunosTurma  alunos_turma[]
   Recibo       recibo[]
 }
@@ -88,6 +90,12 @@ model evento {
   EventoServico evento_servico[]
 }
 
+model numero_de_parcelas {
+  id         String    @id @default(uuid())
+  quantidade Int
+  usuario    usuario[]
+}
+
 model evento_servico {
   evento_id  String
   evento     evento  @relation(fields: [evento_id], references: [id])
@@ -123,6 +131,6 @@ model parcela {
   numero      Float
   valor       Float
   situacao    Boolean @default(false)
-  recibo      recibo  @relation(fields: [recibo_id], references: [id])
-  recibo_id   String  @unique
+  recibo      recibo?  @relation(fields: [recibo_id], references: [id])
+  recibo_id   String?  @unique
 }

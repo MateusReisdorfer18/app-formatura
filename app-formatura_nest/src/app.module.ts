@@ -10,9 +10,12 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { TurmaModule } from './turma/turma.module';
 import { ServicoModule } from './servico/servico.module';
 import { EventoModule } from './evento/evento.module';
+import { NumeroDeParcelasModule } from './numero-de-parcelas/numero-de-parcelas.module';
+import { ParcelaModule } from './parcela/parcela.module';
+import { ReciboModule } from './recibo/recibo.module';
 
 @Module({
-  imports: [PrismaModule, EstadoModule, TipoServicoModule, UsuarioModule, TurmaModule, ServicoModule, EventoModule],
+  imports: [PrismaModule, EstadoModule, TipoServicoModule, UsuarioModule, TurmaModule, ServicoModule, EventoModule, NumeroDeParcelasModule, ParcelaModule, ReciboModule],
   controllers: [AppController, EstadoController],
   providers: [AppService, EstadoService],
 })

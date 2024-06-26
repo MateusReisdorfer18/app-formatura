@@ -8,9 +8,11 @@ import { EstadoModule } from './estado/estado.module';
 import { TipoServicoModule } from './tipo-servico/tipo-servico.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { TurmaModule } from './turma/turma.module';
+import { ServicoModule } from './servico/servico.module';
+import { EventoModule } from './evento/evento.module';
 
 @Module({
-  imports: [PrismaModule, EstadoModule, TipoServicoModule, UsuarioModule, TurmaModule],
+  imports: [PrismaModule, EstadoModule, TipoServicoModule, UsuarioModule, TurmaModule, ServicoModule, EventoModule],
   controllers: [AppController, EstadoController],
   providers: [AppService, EstadoService],
 })

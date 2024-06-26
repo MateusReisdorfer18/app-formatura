@@ -10,8 +10,8 @@ export class ReciboController {
     return this.reciboService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reciboService.findOne(id);
+  @Get(':recibo_id/formando/:formando_id')
+  findOne(@Param('formando_id') formando_id: string, @Param('recibo_id') recibo_id: string) {
+    return this.reciboService.findOne(recibo_id, formando_id);
   }
 }

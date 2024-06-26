@@ -28,9 +28,29 @@ export class ReciboService {
     return recibos
   }
 
-  findOne(id: string) {
-    return this.prismaService.recibo.findUnique({
+  async findOne(id: string, formando_id: string) {
+    const recibo = await this.prismaService.recibo.findUnique({
       where: {id}
     });
+
+    const recibo_formando = await this.prismaService.recibo_formando.findUnique({
+      where: {
+        formando_id_recibo_id: {
+          formando_id,
+          recibo_id: recibo.id
+        }
+      }
+    })
+
+    if(!recibo || !recibo_formando)
+      return null;
+
+    const reciboDto = new ReciboDto();
+    reciboDto.id = recibo.id;
+    reciboDto.comissao_id = recibo.comissao_id;
+    reciboDto.turma_id = recibo.turma_id;
+    reciboDto.formando_id = recibo_formando.formando_id;
+
+    return reciboDto;
   }
 }

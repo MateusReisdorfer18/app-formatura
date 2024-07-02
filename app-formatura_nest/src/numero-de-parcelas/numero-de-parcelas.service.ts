@@ -23,14 +23,22 @@ export class NumeroDeParcelasService {
     });
   }
 
-  update(id: string, updateNumeroDeParcelaDto: UpdateNumeroDeParcelaDto) {
+  async update(id: string, updateNumeroDeParcelaDto: UpdateNumeroDeParcelaDto) {
+    const numeroDeParcelas = await this.findOne(id);
+    if(!numeroDeParcelas)
+      return null;
+    
     return this.prismaService.numero_de_parcelas.update({
       where: {id},
       data: updateNumeroDeParcelaDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const numeroDeParcelas = await this.findOne(id);
+    if(!numeroDeParcelas)
+      return null;
+    
     return this.prismaService.numero_de_parcelas.delete({
       where: {id}
     });

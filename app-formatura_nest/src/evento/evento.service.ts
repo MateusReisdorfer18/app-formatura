@@ -11,17 +11,21 @@ export class EventoService {
     return this.prismaService.evento.create({
       data: {
         ...createEventoDto,
-        data: new Date(createEventoDto.data).toISOString()
+        data: new Date(createEventoDto.data)
       }
     });
   }
 
   async addServico(servico_id: string, evento_id: string) {
-    const evento = await this.prismaService.evento.findUnique({
-      where: {id: evento_id}
+    const evento = await this.findOne(evento_id);
+
+    const servico = await this.prismaService.servico.findUnique({
+      where: {
+        id: servico_id
+      }
     })
 
-    if(!evento)
+    if(!evento || !servico)
       return null;
 
     return this.prismaService.evento_servico.create({
@@ -37,9 +41,7 @@ export class EventoService {
   }
 
   async findAllServicos(evento_id: string) {
-    const evento = await this.prismaService.evento.findUnique({
-      where: {id: evento_id}
-    })
+    const evento = await this.findOne(evento_id);
 
     if(!evento)
       return null;
@@ -52,9 +54,7 @@ export class EventoService {
   }
 
   async findServico(evento_id: string, servico_id: string) {
-    const evento = await this.prismaService.evento.findUnique({
-      where: {id: evento_id}
-    })
+    const evento = await this.findOne(evento_id);
 
     if(!evento)
       return null;
@@ -75,14 +75,22 @@ export class EventoService {
     });
   }
 
-  update(id: string, updateEventoDto: UpdateEventoDto) {
+  async update(id: string, updateEventoDto: UpdateEventoDto) {
+    const evento = await this.findOne(id);
+    if(!evento)
+      return null;
+    
     return this.prismaService.evento.update({
       where: {id},
       data: updateEventoDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const evento = await this.findOne(id);
+    if(!evento)
+      return null;
+    
     return this.prismaService.evento.delete({
       where: {id}
     });

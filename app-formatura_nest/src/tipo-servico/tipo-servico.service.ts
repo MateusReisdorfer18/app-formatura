@@ -23,14 +23,22 @@ export class TipoServicoService {
     });
   }
 
-  update(id: string, updateTipoServicoDto: UpdateTipoServicoDto) {
+  async update(id: string, updateTipoServicoDto: UpdateTipoServicoDto) {
+    const tipoServico = await this.findOne(id);
+    if(!tipoServico)
+      return null;
+
     return this.prismaService.tipo_servico.update({
       where: {id},
       data: updateTipoServicoDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const tipoServico = await this.findOne(id);
+    if(!tipoServico)
+      return null;
+    
     return this.prismaService.tipo_servico.delete({
       where: {id}
     });

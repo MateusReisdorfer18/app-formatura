@@ -23,16 +23,53 @@ export class UsuarioService {
     });
   }
 
-  update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+    const aluno = await this.findOne(id);
+    if(!aluno)
+      return null;
+
     return this.prismaService.usuario.update({
       where: {id},
       data: updateUsuarioDto
     });
   }
 
-  remove(id: string) {
+  async updateSenha(id: string, senha: string) {
+    const aluno = await this.findOne(id);
+
+    if(!aluno)
+      return null;
+
+    return this.prismaService.usuario.update({
+      where: {id},
+      data: {
+        senha: senha
+      }
+    })
+  }
+
+  async remove(id: string) {
+    const aluno = await this.findOne(id);
+    if(!aluno)
+      return null;
+
     return this.prismaService.usuario.delete({
       where: {id}
     });
+  }
+
+  async closeConta(id: string) {
+    const aluno = this.findOne(id);
+    if(!aluno)
+      return false;
+
+    await this.prismaService.usuario.update({
+      where: {id},
+      data: {
+        status: false
+      }
+    })
+
+    return true
   }
 }

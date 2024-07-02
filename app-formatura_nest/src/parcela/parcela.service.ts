@@ -15,33 +15,17 @@ export class ParcelaService {
   }
 
   async createRecibo(parcela_id: string, createReciboDto: CreateReciboDto) {
-    const parcela = await this.prismaService.parcela.findUnique({
-      where: {id: parcela_id}
-    })
-
+    const parcela = await this.findOne(parcela_id);
     const turma = await this.prismaService.turma.findUnique({
-      where: {
-        id: createReciboDto.turma_id,
-        comissao_id: createReciboDto.comissao_id
-      }
-    })
+      where: {id: createReciboDto.turma_id}
+    });
 
     if(!parcela || !turma)
       return null;
 
     const recibo = await this.prismaService.recibo.create({
-      data: {
-        turma_id: turma.id,
-        comissao_id: turma.comissao_id
-      }
-    })
-
-    await this.prismaService.recibo_formando.create({
-      data: {
-        formando_id: parcela.formando_id,
-        recibo_id: recibo.id
-      }
-    })
+      data: createReciboDto
+    });
 
     await this.prismaService.parcela.update({
       where: {id: parcela_id},
@@ -64,14 +48,22 @@ export class ParcelaService {
     });
   }
 
-  update(id: string, updateParcelaDto: UpdateParcelaDto) {
+  async update(id: string, updateParcelaDto: UpdateParcelaDto) {
+    const parcela = this.findOne(id);
+    if(!parcela)
+      return null;
+    
     return this.prismaService.parcela.update({
       where: {id},
       data: updateParcelaDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const parcela = await this.findOne(id);
+    if(!parcela)
+      return null;
+    
     return this.prismaService.parcela.delete({
       where: {id}
     });

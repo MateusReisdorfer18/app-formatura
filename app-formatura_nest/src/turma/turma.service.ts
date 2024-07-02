@@ -2,25 +2,38 @@ import { Injectable } from '@nestjs/common';
 import { CreateTurmaDto } from './dto/create-turma.dto';
 import { UpdateTurmaDto } from './dto/update-turma.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { usuario } from '@prisma/client';
 
 @Injectable()
 export class TurmaService {
   constructor(private prismaService: PrismaService) {}
 
-  create(createTurmaDto: CreateTurmaDto) {
+  async create(createTurmaDto: CreateTurmaDto) {
+    const estado = await this.prismaService.estado.findUnique({
+      where: {
+        id: createTurmaDto.estado_id
+      }
+    })
+
+    if(!estado)
+      return null;
+
     return this.prismaService.turma.create({
       data: createTurmaDto
     })
   }
 
-  addAluno(turma_id: string, aluno_id: string) {
-    return this.prismaService.alunos_turma.create({
-      data: {
-        turma_id,
-        aluno_id
-      }
+  async addAluno(turma_id: string, aluno_id: string) {
+    const aluno = await this.prismaService.usuario.findUnique({
+      where: {id: aluno_id}
     })
+    const turma = await this.findOne(turma_id);
+    if(!aluno || !turma)
+      return null;
+
+    return await this.prismaService.usuario.update({
+      where: {id: aluno_id},
+      data: {turmaId: turma_id}
+    });
   }
 
   findAll() {
@@ -28,8 +41,8 @@ export class TurmaService {
   }
 
   findAllAlunos(turma_id: string) {
-    return this.prismaService.alunos_turma.findMany({
-      where: {turma_id}
+    return this.prismaService.usuario.findMany({
+      where: {turmaId: turma_id}
     })
   }
 
@@ -39,7 +52,11 @@ export class TurmaService {
     });
   }
 
-  update(id: string, updateTurmaDto: UpdateTurmaDto) {
+  async update(id: string, updateTurmaDto: UpdateTurmaDto) {
+    const turma = this.findOne(id);
+    if(!turma)
+      return null;
+   
     return this.prismaService.turma.update({
       where: {id},
       data: updateTurmaDto
@@ -47,16 +64,20 @@ export class TurmaService {
   }
 
   async addComissao(comissao_id: string, turma_id: string) {
-    const alunoTurma = await this.prismaService.alunos_turma.findUnique({
-      where: {
-        turma_id_aluno_id: {
-          turma_id: turma_id, 
-          aluno_id: comissao_id
-        }}
+    const aluno = await this.prismaService.usuario.findUnique({
+      where: {id: comissao_id, turmaId: turma_id}
     })
+    const turma = await this.findOne(turma_id);
 
-    if(!alunoTurma)
-      return;
+    if(!aluno || !turma)
+      return null;
+
+    await this.prismaService.usuario.update({
+      where: {id: comissao_id},
+      data: {
+        isComissao: true
+      }
+    })
 
     return this.prismaService.turma.update({
       where: {id: turma_id},
@@ -82,7 +103,11 @@ export class TurmaService {
     })
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const turma = await this.findOne(id);
+    if(!turma)
+      return null;
+
     return this.prismaService.turma.delete({
       where: {id}
     });

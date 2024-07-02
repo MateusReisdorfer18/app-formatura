@@ -23,14 +23,22 @@ export class EstadoService {
     });
   }
 
-  update(id: string, updateEstTadoDto: UpdateEstadoDto) {
+  async update(id: string, updateEstTadoDto: UpdateEstadoDto) {
+    const estado = await this.findOne(id);
+    if(!estado)
+      return null;
+    
     return this.prismaService.estado.update({
       where: {id},
       data: updateEstTadoDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const estado = await this.findOne(id);
+    if(!estado)
+      return null;
+    
     return this.prismaService.estado.delete({
       where: {id}
     });

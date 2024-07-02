@@ -27,6 +27,16 @@ export class UsuarioController {
     return this.usuarioService.update(id, updateUsuarioDto);
   }
 
+  @Patch(':id/senha')
+  updateSenha(@Param('id') id: string, @Body('senha') senha: string) {
+    return this.usuarioService.updateSenha(id, senha);
+  }
+
+  @Patch(':id/fechar')
+  closeConta(@Param('id') id: string) {
+    return this.usuarioService.closeConta(id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usuarioService.remove(id);

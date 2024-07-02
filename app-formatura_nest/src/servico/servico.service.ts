@@ -23,14 +23,22 @@ export class ServicoService {
     });
   }
 
-  update(id: string, updateServicoDto: UpdateServicoDto) {
+  async update(id: string, updateServicoDto: UpdateServicoDto) {
+    const servico = await this.findOne(id);
+    if(!servico)
+      return null;
+
     return this.prismaService.servico.update({
       where: {id},
       data: updateServicoDto
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const servico = await this.findOne(id);
+    if(!servico)
+      return null;
+    
     return this.prismaService.servico.delete({
       where: {id}
     });

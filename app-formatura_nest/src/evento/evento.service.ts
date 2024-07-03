@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventoDto } from './dto/create-evento.dto';
 import { UpdateEventoDto } from './dto/update-evento.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ServicoDto } from './dto/servico.dto';
+import { evento_servico, servico } from '@prisma/client';
 
 @Injectable()
 export class EventoService {
@@ -50,23 +52,48 @@ export class EventoService {
       where: {
         evento_id
       }
+    });
+  }
+
+  async findServicoByNome(evento_id: string, servico: ServicoDto) {
+    const eventoServico = await this.prismaService.evento_servico.findUnique({
+      where: {
+        evento_id_servico_id: {
+          evento_id,
+          servico_id: servico.servico_id
+        }
+      }
     })
+
+    if(!eventoServico)
+      return null;
+
+    return this.prismaService.servico.findUnique({
+      where: {
+        id: servico.servico_id,
+        empresa: servico.nome_servico
+      }
+    });
   }
 
   async findServico(evento_id: string, servico_id: string) {
-    const evento = await this.findOne(evento_id);
-
-    if(!evento)
-      return null;
-
-    return this.prismaService.evento_servico.findUnique({
+    const eventoServico = await this.prismaService.evento_servico.findUnique({
       where: {
         evento_id_servico_id: {
           evento_id,
           servico_id
         }
       }
-    })
+    });
+
+    if(!eventoServico)
+      return null;
+
+    return this.prismaService.servico.findUnique({
+      where: {
+        id: servico_id
+      }
+    });
   }
 
   findOne(id: string) {

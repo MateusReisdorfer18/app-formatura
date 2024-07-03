@@ -13,8 +13,8 @@ export class ParcelaController {
     return this.parcelaService.create(createParcelaDto);
   }
 
-  @Post(':parcela_id/cadastrar/recibo')
-  createRecibo(@Param('parcela_id') parcela_id: string, @Body() createReciboDto: CreateReciboDto) {
+  @Post(':parcela_id/recibo')
+  payParcela(@Param('parcela_id') parcela_id: string, @Body() createReciboDto: CreateReciboDto) {
     return this.parcelaService.createRecibo(parcela_id, createReciboDto);
   }
 

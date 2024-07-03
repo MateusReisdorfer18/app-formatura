@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EventoService } from './evento.service';
 import { CreateEventoDto } from './dto/create-evento.dto';
 import { UpdateEventoDto } from './dto/update-evento.dto';
+import { ServicoDto } from './dto/servico.dto';
 
 @Controller('evento')
 export class EventoController {
@@ -12,7 +13,7 @@ export class EventoController {
     return this.eventoService.create(createEventoDto);
   }
 
-  @Post(':evento_id')
+  @Post(':evento_id/servico')
   addServico(@Param('evento_id') evento_id: string, @Body('servico_id') servico_id: string) {
     return this.eventoService.addServico(servico_id, evento_id);
   }
@@ -27,12 +28,17 @@ export class EventoController {
     return this.eventoService.findOne(id);
   }
 
-  @Get('servico/:evento_id')
+  @Get(':evento_id/servico')
   findAllServicos(@Param('evento_id') evento_id: string) {
     return this.eventoService.findAllServicos(evento_id);
   }
 
-  @Get('servico/:evento_id/:servico_id')
+  @Get(':evento_id/servico/nome')
+  findServicoByNome(@Param('evento_id') evento_id: string, @Body() servico: ServicoDto) {
+    return this.eventoService.findServicoByNome(evento_id, servico);
+  }
+
+  @Get(':evento_id/servico/:servico_id')
   findServico(@Param('servico_id') servico_id: string, @Param('evento_id') evento_id: string) {
     return this.eventoService.findServico(evento_id, servico_id);
   }

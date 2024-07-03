@@ -27,6 +27,11 @@ export class ServicoController {
     return this.servicoService.update(id, updateServicoDto);
   }
 
+  @Patch(':id/situacao')
+  updateSituacao(@Param('id') id: string) {
+    return this.servicoService.updateSituacao(id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.servicoService.remove(id);

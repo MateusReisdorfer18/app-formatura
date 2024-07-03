@@ -27,15 +27,13 @@ export class ParcelaService {
       data: createReciboDto
     });
 
-    await this.prismaService.parcela.update({
+    return this.prismaService.parcela.update({
       where: {id: parcela_id},
       data: {
         recibo_id: recibo.id,
         situacao: true
       }
-    })
-
-    return recibo;
+    }).recibo();
   }
 
   findAll() {

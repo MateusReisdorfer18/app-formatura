@@ -34,6 +34,19 @@ export class ServicoService {
     });
   }
 
+  async updateSituacao(id: string) {
+    const servico = await this.findOne(id);
+    if(!servico)
+      return null;
+
+    return this.prismaService.servico.update({
+      where: {id},
+      data: {
+        situacao: !servico.situacao
+      }
+    })
+  }
+
   async remove(id: string) {
     const servico = await this.findOne(id);
     if(!servico)

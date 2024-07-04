@@ -17,6 +17,11 @@ export class UsuarioController {
     return this.usuarioService.findAll();
   }
 
+  @Get(":usuario_id/recibo")
+  findAllRecibos(@Param("usuario_id") usuario_id: string) {
+    return this.usuarioService.findAllRecibos(usuario_id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(id);

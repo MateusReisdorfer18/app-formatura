@@ -37,10 +37,12 @@ export class TipoServicoService {
   async remove(id: string) {
     const tipoServico = await this.findOne(id);
     if(!tipoServico)
-      return null;
+      return false;
     
-    return this.prismaService.tipo_servico.delete({
+    await this.prismaService.tipo_servico.delete({
       where: {id}
     });
+
+    return true;
   }
 }

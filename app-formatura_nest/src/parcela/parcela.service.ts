@@ -24,7 +24,11 @@ export class ParcelaService {
       return null;
 
     const recibo = await this.prismaService.recibo.create({
-      data: createReciboDto
+      data: {
+        ...createReciboDto,
+        comissao_id: turma.comissao_id,
+        formando_id: parcela.formando_id
+      }
     });
 
     return this.prismaService.parcela.update({

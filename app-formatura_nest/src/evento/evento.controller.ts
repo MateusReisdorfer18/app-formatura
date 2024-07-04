@@ -52,4 +52,9 @@ export class EventoController {
   remove(@Param('id') id: string) {
     return this.eventoService.remove(id);
   }
+
+  @Delete(":evento_id/servico/:servico_id")
+  removeServico(@Param("evento_id") evento_id: string, @Param("servico_id") servico_id: string) {
+    return this.eventoService.removeServico(evento_id, servico_id);
+  }
 }

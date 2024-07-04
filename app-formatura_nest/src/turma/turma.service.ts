@@ -32,7 +32,7 @@ export class TurmaService {
 
     return await this.prismaService.usuario.update({
       where: {id: aluno_id},
-      data: {turmaId: turma_id}
+      data: {turma_id: turma_id}
     });
   }
 
@@ -42,7 +42,7 @@ export class TurmaService {
 
   findAllAlunos(turma_id: string) {
     return this.prismaService.usuario.findMany({
-      where: {turmaId: turma_id}
+      where: {turma_id: turma_id}
     })
   }
 
@@ -65,7 +65,7 @@ export class TurmaService {
 
   async addComissao(comissao_id: string, turma_id: string) {
     const aluno = await this.prismaService.usuario.findUnique({
-      where: {id: comissao_id, turmaId: turma_id}
+      where: {id: comissao_id, turma_id: turma_id}
     })
     const turma = await this.findOne(turma_id);
 
@@ -75,7 +75,7 @@ export class TurmaService {
     await this.prismaService.usuario.update({
       where: {id: comissao_id},
       data: {
-        isComissao: true
+        is_comissao: true
       }
     })
 
@@ -93,23 +93,49 @@ export class TurmaService {
     })
 
     if(!turma)
-      return;
+      return false;
 
-    return this.prismaService.turma.update({
+    await this.prismaService.turma.update({
       where: {id: turma_id},
       data: {
         status: !turma.status
       }
     })
+
+    return true;
   }
 
   async remove(id: string) {
     const turma = await this.findOne(id);
     if(!turma)
-      return null;
+      return false;
 
-    return this.prismaService.turma.delete({
+    await this.prismaService.turma.delete({
       where: {id}
     });
+
+    return true;
+  }
+
+  async removeAluno(turma_id: string, aluno_id: string) {
+    const returnRemoveAluno = await this.prismaService.usuario.update({
+      where: {id: aluno_id, turma_id: turma_id},
+      data: {
+        turma_id: null
+      }
+    })
+
+    return returnRemoveAluno !== null;
+  }
+
+  async removeComissao(turma_id: string) {
+    const returnRemoveComissao = await this.prismaService.turma.update({
+      where: {id: turma_id},
+      data: {
+        comissao_id: null
+      }
+    })
+
+    return returnRemoveComissao !== null;
   }
 }

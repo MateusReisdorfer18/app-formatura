@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ServicoService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   create(createServicoDto: CreateServicoDto) {
     return this.prismaService.servico.create({
@@ -19,28 +19,28 @@ export class ServicoService {
 
   findOne(id: string) {
     return this.prismaService.servico.findUnique({
-      where: {id}
+      where: { id }
     });
   }
 
   async update(id: string, updateServicoDto: UpdateServicoDto) {
     const servico = await this.findOne(id);
-    if(!servico)
+    if (!servico)
       return null;
 
     return this.prismaService.servico.update({
-      where: {id},
+      where: { id },
       data: updateServicoDto
     });
   }
 
   async updateSituacao(id: string) {
     const servico = await this.findOne(id);
-    if(!servico)
+    if (!servico)
       return null;
 
     return this.prismaService.servico.update({
-      where: {id},
+      where: { id },
       data: {
         situacao: !servico.situacao
       }
@@ -49,11 +49,11 @@ export class ServicoService {
 
   async remove(id: string) {
     const servico = await this.findOne(id);
-    if(!servico)
+    if (!servico)
       return null;
-    
+
     return this.prismaService.servico.delete({
-      where: {id}
+      where: { id }
     });
   }
 }

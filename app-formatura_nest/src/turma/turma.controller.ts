@@ -42,9 +42,19 @@ export class TurmaController {
     return this.turmaService.addComissao(comissao_id, turma_id);
   }
 
+  @Patch(":turma_id/alunos/:aluno_id")
+  removeAluno(@Param("turma_id") turma_id: string, @Param("aluno_id") aluno_id: string) {
+    return this.turmaService.removeAluno(turma_id, aluno_id);
+  }
+
   @Patch(':turma_id/status')
   alterStatus(@Param('turma_id') turma_id: string) {
     return this.turmaService.alterStatus(turma_id);
+  }
+
+  @Patch(":turma_id/comissao/remove")
+  removeComissao(@Param("turma_id") turma_id: string) {
+    return this.turmaService.removeComissao(turma_id);
   }
 
   @Delete(':id')

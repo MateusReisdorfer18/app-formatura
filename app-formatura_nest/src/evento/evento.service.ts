@@ -122,4 +122,15 @@ export class EventoService {
       where: {id}
     });
   }
+
+  removeServico(evento_id: string, servico_id: string) {
+    return this.prismaService.evento_servico.delete({
+      where: {
+        evento_id_servico_id: {
+          evento_id,
+          servico_id
+        }
+      }
+    })
+  }
 }

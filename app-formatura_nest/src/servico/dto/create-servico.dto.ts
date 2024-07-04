@@ -3,6 +3,6 @@ export class CreateServicoDto {
     empresa: string;
     cidade: string;
     estado_id: string;
-    telefoneCelular: string;
+    telefone_celular: string;
     valor: number;
 }

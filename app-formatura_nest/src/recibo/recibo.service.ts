@@ -11,7 +11,13 @@ export class ReciboService {
 
   findOne(id: string, formando_id: string) {
     return this.prismaService.recibo.findUnique({
-      where: {id, formandoId: formando_id}
+      where: {id, formando_id: formando_id}
     });
+  }
+
+  delete(id: string) {
+    return this.prismaService.recibo.delete({
+      where: {id}
+    })
   }
 }

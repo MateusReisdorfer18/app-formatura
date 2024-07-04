@@ -33,15 +33,15 @@ model usuario {
   senha                 String
   cpf                   String
   status                Boolean             @default(true)
-  isComissao            Boolean             @default(false)
+  is_comissao            Boolean             @default(false)
   TurmaComissao         turma[]             @relation(name: "comissao")
   Parcela               parcela[]
   Recibo                recibo[]            @relation(name: "comissao")
   recibos               recibo[]            @relation(name: "formando")
   numero_de_parcelas    numero_de_parcelas? @relation(fields: [numero_de_parcelas_id], references: [id])
   numero_de_parcelas_id String?
-  turmaAlunos           turma?              @relation(name: "turmaAlunos", fields: [turmaId], references: [id])
-  turmaId               String?
+  turma_alunos           turma?              @relation(name: "turmaAlunos", fields: [turma_id], references: [id])
+  turma_id               String?
 }
 
 model turma {
@@ -67,8 +67,8 @@ model servico {
   cidade          String
   estado          estado           @relation(fields: [estado_id], references: [id])
   estado_id       String
-  telefoneCelular String
-  telefoneFixo    String?
+  telefone_celular String
+  telefone_fixo    String?
   valor           Float
   situacao        Boolean          @default(true)
   EventoServico   evento_servico[]
@@ -104,8 +104,8 @@ model recibo {
   Parcela     parcela?
   comissao    usuario  @relation(name: "comissao", fields: [comissao_id], references: [id])
   comissao_id String
-  formando    usuario? @relation(name: "formando", fields: [formandoId], references: [id])
-  formandoId  String?
+  formando    usuario? @relation(name: "formando", fields: [formando_id], references: [id])
+  formando_id  String?
 }
 
 model parcela {

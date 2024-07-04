@@ -23,6 +23,14 @@ export class UsuarioService {
     });
   }
 
+  findAllRecibos(usuario_id: string) {
+    return this.prismaService.recibo.findMany({
+      where: {
+        formando_id: usuario_id
+      }
+    })
+  }
+
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
     const aluno = await this.findOne(id);
     if(!aluno)
@@ -51,11 +59,13 @@ export class UsuarioService {
   async remove(id: string) {
     const aluno = await this.findOne(id);
     if(!aluno)
-      return null;
+      return false;
 
-    return this.prismaService.usuario.delete({
+    await this.prismaService.usuario.delete({
       where: {id}
     });
+    
+    return true;
   }
 
   async closeConta(id: string) {

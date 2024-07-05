@@ -1,0 +1,39 @@
+<div class="d-flex flex-column align-items-center justify-content-center vh-100 col-10 m-auto div-cadastro">
+    <span class="p-2"
+        routerLink="/login">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+          </svg>
+    </span>
+    <div class="text-center col-12">
+        <!-- <img src="" alt=""> -->
+        <h2 class="pb-3">Logo</h2>
+        <p class="fs-4">Preencha o cadastro, é rápido!</p>
+    </div>
+    <div class="col-12 py-5">
+        <div class="d-flex flex-column pb-4">
+            <label for="nome" class="pb-2 fs-4 fw-bold text-secondary">Nome</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" class="border-0 border-bottom p-2" [(ngModel)]="this.usuarioCadastro.nome">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="login" class="pb-2 fs-4 fw-bold text-secondary">Login</label>
+            <input type="text" id="login" placeholder="Digite seu login" class="border-0 border-bottom p-2" [(ngModel)]="this.usuarioCadastro.login">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="senha" class="pb-2 fs-4 fw-bold text-secondary">Senha</label>
+            <input type="password" id="senha" placeholder="*****" class="border-0 border-bottom p-2" [(ngModel)]="this.usuarioCadastro.senha">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="confirmar_senha" class="pb-2 fs-4 fw-bold text-secondary">Confirme a Senha</label>
+            <input type="password" id="confirmar_senha" placeholder="*****" class="border-0 border-bottom p-2" [(ngModel)]="this.confirmarSenha">
+        </div>
+        <div class="d-flex flex-column">
+            <label for="cpf" class="pb-2 fs-4 fw-bold text-secondary">CPF</label>
+            <input type="text" id="cpf" placeholder="123.456.789-01" class="border-0 border-bottom p-2" [(ngModel)]="this.usuarioCadastro.cpf">
+        </div>
+    </div>
+    <div class="flex-column d-flex align-items-center col-12">
+        <button class="btn btn-lg col-7 text-light fw-bold mb-3 btn-green"
+            (click)="this.cadastrarUsuario()">Gravar</button>
+    </div>
+</div>

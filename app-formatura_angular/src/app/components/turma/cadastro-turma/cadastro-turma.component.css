@@ -1,0 +1,21 @@
+.btn-green {
+    background-color: #a6ce39ff;
+}
+
+button:hover {
+    transition: .2s;
+    opacity: .7;
+    scale: 105%;
+}
+
+p {
+    color: #283259ff;
+}
+
+.form-select {
+    width: 60%;
+}
+
+.form-select:focus {
+    border: none;
+}

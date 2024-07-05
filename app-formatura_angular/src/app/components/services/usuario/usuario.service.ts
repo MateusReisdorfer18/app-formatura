@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IUsuario } from '../../interfaces/IUsuario';
 import { Environment } from '../../../environment';
 import { IRecibo } from '../../interfaces/IRecibo';
+import { IUsuarioLogin } from '../../interfaces/IUsuarioLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class UsuarioService {
 
   findAllRecibos(id: string): Observable<IRecibo[]> {
     return this.http.get<IRecibo[]>(`${Environment.APIURL}/usuario/${id}/recibo`);
+  }
+
+  findByLoginAndSenha(usuarioLogin: IUsuarioLogin): Observable<IUsuario> {
+    return this.http.post<IUsuario>(`${Environment.APIURL}/usuario/login`, usuarioLogin);
   }
 
   findById(id: string): Observable<IUsuario> {

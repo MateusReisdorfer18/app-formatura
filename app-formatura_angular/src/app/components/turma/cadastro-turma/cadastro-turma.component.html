@@ -1,0 +1,36 @@
+<div class="col-12">
+    <app-header [lastRoute]="this.lastRoute"></app-header>
+    <div class="col-10 m-auto">
+        <div class="text-center col-12 pt-4">
+            <p class="fs-4 fw-bold">Crie sua nova turma fácil!</p>
+        </div>
+        <div class="col-12 py-5">
+            <div class="d-flex flex-column pb-4">
+                <label for="nome" class="pb-2 fs-4 fw-bold text-secondary">Nome da turma</label>
+                <input type="text" id="nome" placeholder="Digite seu nome" class="border-0 border-bottom p-2" 
+                    [(ngModel)]="this.turma.nome">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="universidade" class="pb-2 fs-4 fw-bold text-secondary">Faculdade / Universidade</label>
+                <input type="text" id="universidade" placeholder="Digite o nome" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.turma.universidade">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="cidade" class="pb-2 fs-4 fw-bold text-secondary">Cidade</label>
+                <input type="text" id="cidade" placeholder="Digite a cidade" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.turma.cidade">
+            </div>
+            <div class="d-flec flex-column">
+                <label for="estado" class="pb-2 fs-4 fw-bold text-secondary">Estado</label>
+                <select class="form-select" id="estado" aria-label="Default select example" [(ngModel)]="this.turma.estado">
+                    <option selected>Procure seu estado</option>
+                    <option [ngValue]="estado" *ngFor="let estado of this.estados">{{ estado.sigla }}</option>
+                  </select>
+            </div>
+        </div>
+        <div class="flex-column d-flex align-items-center col-12">
+            <button class="btn btn-lg col-7 text-light fw-bold mb-3 btn-green"
+                (click)="this.cadastrarTurma()">Gravar</button>
+        </div>
+    </div>
+</div>

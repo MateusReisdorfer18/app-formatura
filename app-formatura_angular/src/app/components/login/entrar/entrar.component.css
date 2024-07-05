@@ -1,0 +1,17 @@
+h2 {
+    font-size: 3rem; 
+}
+
+.btn-green {
+    background-color: #a6ce39ff;
+}
+
+button:hover {
+    transition: .2s;
+    opacity: .7;
+    scale: 105%;
+}
+
+button:last-child{
+    background-color: #008cedff;
+}

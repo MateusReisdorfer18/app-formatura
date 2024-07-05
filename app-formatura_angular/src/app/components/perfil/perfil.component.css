@@ -1,0 +1,22 @@
+header {
+    background-color: #283259ff;
+}
+
+span {
+    cursor: pointer;
+}
+
+img {
+    border: .1rem solid #283259ff;
+    padding: 3rem;
+}
+
+button {
+    background-color: #a6ce39ff;
+}
+
+button:hover {
+    transition: .2s;
+    opacity: .7;
+    background-color: #a6ce39ff;
+}

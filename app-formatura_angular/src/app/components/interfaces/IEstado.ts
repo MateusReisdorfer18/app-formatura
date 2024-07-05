@@ -1,4 +1,4 @@
 export interface IEstado {
-    id: string;
+    id?: string;
     sigla: string;
 }

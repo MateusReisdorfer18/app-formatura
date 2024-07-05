@@ -1,0 +1,25 @@
+.image {
+    border: .1rem solid #283259ff;
+}
+
+h2 {
+    color: #283259ff;
+}
+
+p:last-child {
+    color: #a6ce39ff;
+}
+
+button {
+    font-size: .8rem;
+}
+
+button:last-child {
+    background-color: #a6ce39ff;
+}
+
+button:last-child:hover {
+    transition: .2s;
+    opacity: .7;
+    background-color: #a6ce39ff;
+}

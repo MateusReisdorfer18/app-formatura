@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ITurma } from '../../interfaces/ITurma';
 import { Environment } from '../../../environment';
 import { IUsuario } from '../../interfaces/IUsuario';
+import { ITurmaCadastro } from '../../interfaces/ITurmaCadastro';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,10 @@ export class TurmaService {
   }
 
   findById(id: string): Observable<ITurma> {
-    return this.http.get<ITurma>(`${Environment.APIURL}/tumra/${id}`);
+    return this.http.get<ITurma>(`${Environment.APIURL}/turma/${id}`);
   }
 
-  create(turma: ITurma): Observable<ITurma> {
+  create(turma: ITurmaCadastro): Observable<ITurma> {
     return this.http.post<ITurma>(`${Environment.APIURL}/turma`, turma);
   }
 

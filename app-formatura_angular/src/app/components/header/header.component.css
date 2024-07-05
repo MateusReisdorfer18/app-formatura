@@ -1,0 +1,14 @@
+header {
+    background-color: #283259ff;
+    position: relative;
+}
+
+span {
+    cursor: pointer;
+}
+
+div {
+    position: absolute;
+    right: 1rem;
+    top: 4.5rem;
+}

@@ -3,4 +3,5 @@ export interface ITurmaCadastro {
     universidade: string;
     cidade: string;
     estado_id: string;
+    comissao_id?: string;
 }

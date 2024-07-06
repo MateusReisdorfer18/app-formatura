@@ -13,7 +13,7 @@ export class CadastroComponent {
     nome: '',
     login: '',
     senha: '',
-    cpf: ''
+    cpf: '',
   };
   confirmarSenha: string = '';
 
@@ -21,8 +21,9 @@ export class CadastroComponent {
 
   cadastrarUsuario(): void {
     if(this.usuarioCadastro.senha === this.confirmarSenha && this.validarCpf(this.usuarioCadastro.cpf)) {
-      this.usuarioService.create(this.usuarioCadastro).subscribe(() => {
-        this.router.navigate(["/login"])
+      this.usuarioService.create(this.usuarioCadastro).subscribe((usuario) => {
+        if(usuario)
+          this.router.navigate(["/login"])
       });
     }
 

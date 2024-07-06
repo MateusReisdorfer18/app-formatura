@@ -1,5 +1,5 @@
 <div class="col-12">
-    <app-header [lastRoute]="this.lastRoute"></app-header>
+    <app-header [usuarioId]="this.usuarioId"></app-header>
     <div class="col-10 m-auto">
         <div class="col-12 pt-4">
             <input type="text" placeholder="Ache sua turma aqui"
@@ -10,8 +10,13 @@
                   </svg>
             </span>
         </div>
-        <div class="col-12 pt-3">
-            <app-turma-card *ngFor="let turma of this.turmas" [turma]="turma"></app-turma-card>
+        <div class="col-12 pt-3"
+            *ngIf="this.turmas.length > 0">
+            <app-turma-card *ngFor="let turma of this.turmas" 
+                [turma]="turma"
+                [usuarioId]="this.usuarioId"></app-turma-card>
         </div>
+        <p *ngIf="this.turmas.length < 1"
+            class="pt-4 text-center text-secondary fw-bold fst-italic">Nenhum sala disponível, peça a sua comissão para cadastrar uma!</p>
     </div>
 </div>

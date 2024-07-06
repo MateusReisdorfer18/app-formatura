@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ITurma } from '../../interfaces/ITurma';
 import { TurmaService } from '../../services/turma/turma.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscar-turma',
@@ -9,17 +9,17 @@ import { Router } from '@angular/router';
   styleUrl: './buscar-turma.component.css'
 })
 export class BuscarTurmaComponent implements OnInit{
-  lastRoute: string = '';
+  usuarioId: string = '';
   turmas: ITurma[] = [];
 
   constructor(private turmaService: TurmaService,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const lastRoute: string | undefined = this.router.lastSuccessfulNavigation?.previousNavigation?.initialUrl.toString();
-      if(lastRoute)
-        this.lastRoute = lastRoute;
+    const usuarioId: string | null = this.route.snapshot.paramMap.get('usuario_id');
+      if(usuarioId)
+        this.usuarioId = usuarioId;
     this.findAllTurmas();
   }
 

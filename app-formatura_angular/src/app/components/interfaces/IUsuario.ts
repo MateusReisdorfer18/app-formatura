@@ -8,7 +8,7 @@ export interface IUsuario {
     senha: string;
     cpf: string;
     status?: boolean;
-    isComissao?: boolean;
+    is_comissao?: boolean;
     numero_de_parcelas?: INumeroDeParcelas;
     numero_de_parcelas_id?: string;
     turma?: ITurma;

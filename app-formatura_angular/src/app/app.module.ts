@@ -13,6 +13,10 @@ import { TurmaComponent } from './components/turma/turma/turma.component';
 import { BuscarTurmaComponent } from './components/turma/buscar-turma/buscar-turma.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { TurmaCardComponent } from './components/turma/turma-card/turma-card.component';
+import { ServicoCardComponent } from './components/turma/servico-card/servico-card.component';
+import { TurmaComissaoComponent } from './components/turma/turma-comissao/turma-comissao.component';
+import { CadastroServicoComponent } from './components/servico/cadastro-servico/cadastro-servico.component';
+import { RelatorioServicosComponent } from './components/servico/relatorio-servicos/relatorio-servicos.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { TurmaCardComponent } from './components/turma/turma-card/turma-card.com
     TurmaComponent,
     BuscarTurmaComponent,
     PerfilComponent,
-    TurmaCardComponent
+    TurmaCardComponent,
+    ServicoCardComponent,
+    TurmaComissaoComponent,
+    CadastroServicoComponent,
+    RelatorioServicosComponent
   ],
   imports: [
     BrowserModule,

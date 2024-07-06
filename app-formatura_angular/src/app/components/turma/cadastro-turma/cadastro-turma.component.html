@@ -1,5 +1,5 @@
 <div class="col-12">
-    <app-header [lastRoute]="this.lastRoute"></app-header>
+    <app-header [usuarioId]="this.usuarioId"></app-header>
     <div class="col-10 m-auto">
         <div class="text-center col-12 pt-4">
             <p class="fs-4 fw-bold">Crie sua nova turma fácil!</p>
@@ -20,11 +20,16 @@
                 <input type="text" id="cidade" placeholder="Digite a cidade" class="border-0 border-bottom p-2"
                     [(ngModel)]="this.turma.cidade">
             </div>
-            <div class="d-flec flex-column">
+            <div class="d-flex flex-column">
                 <label for="estado" class="pb-2 fs-4 fw-bold text-secondary">Estado</label>
                 <select class="form-select" id="estado" aria-label="Default select example" [(ngModel)]="this.turma.estado">
-                    <option selected>Procure seu estado</option>
                     <option [ngValue]="estado" *ngFor="let estado of this.estados">{{ estado.sigla }}</option>
+                  </select>
+            </div>
+            <div class="d-flex flex-column">
+                <label for="estado" class="pb-2 fs-4 fw-bold text-secondary">Comissão</label>
+                <select class="form-select" id="estado" aria-label="Default select example" [(ngModel)]="this.turma.comissao">
+                    <option [ngValue]="usuario" *ngFor="let usuario of this.usuarios">{{ usuario.nome }}</option>
                   </select>
             </div>
         </div>

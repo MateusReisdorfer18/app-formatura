@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent{
-  @Input() lastRoute: string = '';
+  @Input() usuarioId: string = '';
   showMenu: boolean = false;
 
   constructor(private router: Router) {}
 
   backToPerfil(): void {
-    if(this.lastRoute !== '')
-      this.router.navigate([this.lastRoute]);
+    if(this.usuarioId !== '')
+      this.router.navigate([`/perfil/${this.usuarioId}`]);
   }
 }

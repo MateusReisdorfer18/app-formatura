@@ -5,6 +5,8 @@ import { ITurma } from '../../interfaces/ITurma';
 import { Environment } from '../../../environment';
 import { IUsuario } from '../../interfaces/IUsuario';
 import { ITurmaCadastro } from '../../interfaces/ITurmaCadastro';
+import { IEvento } from '../../interfaces/IEvento';
+import { ITurmaEventos } from '../../interfaces/ITurmaEventos';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,10 @@ export class TurmaService {
     return this.http.get<IUsuario[]>(`${Environment.APIURL}/turma/${id}/alunos`);
   }
 
+  findEvento(evento_id: string): Observable<IEvento> {
+    return this.http.get<IEvento>(`${Environment.APIURL}/turma/${evento_id}/evento`);
+  }
+
   findById(id: string): Observable<ITurma> {
     return this.http.get<ITurma>(`${Environment.APIURL}/turma/${id}`);
   }
@@ -32,8 +38,8 @@ export class TurmaService {
     return this.http.patch<ITurma>(`${Environment.APIURL}/turma/${id}`, turma);
   }
 
-  addAluno(id: string): Observable<IUsuario> {
-    return this.http.patch<IUsuario>(`${Environment.APIURL}/turma/${id}/alunos`, {});
+  addAluno(id: string, usuarioId: string): Observable<IUsuario> {
+    return this.http.patch<IUsuario>(`${Environment.APIURL}/turma/${id}/alunos`, {aluno_id: usuarioId});
   }
 
   addComissao(turma_id: string, aluno_id: string): Observable<ITurma> {

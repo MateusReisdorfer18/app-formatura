@@ -3,7 +3,7 @@ import { IEvento } from "./IEvento";
 import { ITipoServico } from "./ITipoServico";
 
 export interface IServico {
-    id: string;
+    id?: string;
     tipo?: ITipoServico;
     tipo_id: string;
     empresa: string;
@@ -14,6 +14,6 @@ export interface IServico {
     telefone_celular: string;
     telefone_fixo?: string;
     valor: number;
-    situacao: boolean;
+    situacao?: boolean;
     eventos?: IEvento[]
 }

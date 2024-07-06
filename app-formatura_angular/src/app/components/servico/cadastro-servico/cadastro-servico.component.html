@@ -1,0 +1,56 @@
+<div class="col-12">
+    <app-header [usuarioId]="this.usuarioId"></app-header>
+    <div class="col-10 m-auto">
+        <div class="text-center col-12 pt-4">
+            <p class="fs-4 fw-bold">Cadastre seus fornecedores</p>
+        </div>
+        <div class="col-12 py-3">
+            <div class="d-flex flex-column">
+                <label for="tipo" class="pb-2 fs-4 fw-bold text-secondary">Tipo de Serviço</label>
+                <select class="form-select" id="tipo" aria-label="Default select example" [(ngModel)]="this.servico.tipo_id">
+                    <option [ngValue]="tipo.id" *ngFor="let tipo of this.tipos">{{ tipo.tipo }}</option>
+                  </select>
+            </div>
+            <div class="d-flex flex-column">
+                <label for="empresa" class="pb-2 fs-4 fw-bold text-secondary">Nome da empresa</label>
+                <input type="text" id="empresa" placeholder="Digite o nome" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.empresa">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="cidade" class="pb-2 fs-4 fw-bold text-secondary">Cidade</label>
+                <input type="text" id="cidade" placeholder="Digite a cidade" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.cidade">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="estado" class="pb-2 fs-4 fw-bold text-secondary">Estado</label>
+                <select class="form-select" id="estado" aria-label="Default select example" [(ngModel)]="this.servico.estado_id">
+                    <option [ngValue]="estado.id" *ngFor="let estado of this.estados">{{ estado.sigla }}</option>
+                  </select>
+            </div>
+            <div class="d-flex flex-column">
+                <label for="celular" class="pb-2 fs-4 fw-bold text-secondary">Contato - Celular</label>
+                <input type="text" id="celular" placeholder="(99) 99999-9999" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.telefone_celular">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="fixo" class="pb-2 fs-4 fw-bold text-secondary">Contato - Fixo</label>
+                <input type="text" id="fixo" placeholder="(99) 99999-9999" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.telefone_fixo">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="valor" class="pb-2 fs-4 fw-bold text-secondary">Valor do Servicço</label>
+                <input type="number" id="valor" placeholder="R$ 0.00" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.valor">
+            </div>
+            <div class="d-flex flex-column">
+                <label for="observacao" class="pb-2 fs-4 fw-bold text-secondary">Observacao</label>
+                <input type="text" id="observacao" placeholder="Digite aqui" class="border-0 border-bottom p-2"
+                    [(ngModel)]="this.servico.observacao">
+            </div>
+        </div>
+        <div class="flex-column d-flex align-items-center col-12">
+            <button class="btn btn-lg col-7 text-light fw-bold mb-3 btn-green"
+                (click)="this.cadastrarServico()">Gravar</button>
+        </div>
+    </div>
+</div>

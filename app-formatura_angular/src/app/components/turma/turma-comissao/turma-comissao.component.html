@@ -1,0 +1,78 @@
+<div class="col-12">
+    <app-header [usuarioId]="this.usuarioId"></app-header>
+    <div class="col-12">
+        <h2 class="text-center py-3 fs-1">{{this.turma.nome}}</h2>
+        <ul class="col-10 m-auto list-group list-group-flush">
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Faculdade:</p>
+                <p class="fs-5 ps-2 fst-italic">{{this.turma.universidade}}</p>
+            </li>
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Formando:</p>
+                <p class="fs-5 ps-2 fst-italic">{{this.usuario.nome}}</p>
+            </li>
+            <div class="col-12 border rounded d-flex flex-column align-items-center">
+                <li class="list-group-item border-0 d-flex">
+                    <p class="fs-5 fw-bold">Data do evento:</p>
+                    <p class="fs-5 ps-2 fst-italic" *ngIf="this.turma.evento?.data">{{this.turma.evento?.data}}</p>
+                    <p class="fs-5 ps-2 fst-italic" *ngIf="!this.turma.evento">Data indefinida</p>
+                </li>
+                <li class="list-group-item border-0 d-flex">
+                    <p class="fs-5 fw-bold">Número de convidados:</p>
+                    <p class="fs-5 ps-2 fst-italic" *ngIf="this.turma.evento?.convidados">{{this.turma.evento?.convidados}}</p>
+                    <p class="fs-5 ps-2 fst-italic" *ngIf="!this.turma.evento">Número de convidados indefinido</p>
+                </li>
+                <button class="btn col-6 mb-2 fw-bold text-light">Editar</button>
+            </div>
+        </ul>
+        <div class="col-10 m-auto d-flex justify-content-center pt-3">
+            <a class="fst-italic text-secondary p-2 rounded">Ver parcelas</a>
+        </div>
+    </div>
+    <div class="col-10 d-flex flex-column pt-3 m-auto">
+        <section class="col-12 d-flex">
+            <div class="col-6 px-1">
+                <button class="btn col-12 p-3">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-currency-dollar text-light" viewBox="0 0 16 16">
+                            <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+                          </svg>
+                    </span>
+                </button>
+                <p class="fst-italic fw-bold text-center">Controle de Caixa</p>
+            </div>
+            <div class="col-6 px-1">
+                <button class="btn col-12 p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard text-light" viewBox="0 0 16 16">
+                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
+                        <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z"/>
+                      </svg>
+                </button>
+                <p class="fst-italic fw-bold text-center">Formandos</p>
+            </div>
+        </section>
+        <section class="col-12 d-flex">
+            <div class="col-6 px-1">
+                <button class="btn col-12 p-3"
+                    routerLink="servico">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-lines-fill text-light" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                          </svg>
+                    </span>
+                </button>
+                <p class="fst-italic fw-bold text-center">Cadastro de Fornecedores</p>
+            </div>
+            <div class="col-6 px-1">
+                <button class="btn col-12 p-3">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list-ul text-light" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                          </svg>
+                    </span>
+                </button>
+                <p class="fst-italic fw-bold text-center">Rélatorio de Fornecedores</p>
+            </div>
+        </section>
+    </div>
+</div>

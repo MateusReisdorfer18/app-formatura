@@ -10,6 +10,7 @@ import { UsuarioService } from '../services/usuario/usuario.service';
 })
 export class PerfilComponent {
   usuario: IUsuario = {
+    id: '',
     nome: '',
     login: '',
     senha: '',

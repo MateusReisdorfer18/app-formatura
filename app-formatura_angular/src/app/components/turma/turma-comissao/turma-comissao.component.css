@@ -6,7 +6,17 @@ ul {
     list-style-type: none;
 }
 
-a{
+button {
+    background-color: #a6ce39ff;
+}
+
+button:hover {
+    transition: .2s;
+    opacity: .7;
+    background-color: #a6ce39ff;
+}
+
+a {
     text-decoration: none;
     cursor: pointer;
 }

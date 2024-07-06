@@ -1,0 +1,13 @@
+<li class="list-group-item card-servico">
+    <h3 class="text-center">{{this.servico.tipo?.tipo}}</h3>
+    <div>
+        <p class="fw-bold">Empresa:</p>
+        <p class="ps-1">{{this.servico.empresa}}</p>
+    </div>
+    <div>
+        <p class="fw-bold">Observacao:</p>
+        <p class="ps-1" *ngIf="this.servico.observacao">{{this.servico.observacao}}</p>
+        <p class="ps-1" *ngIf="!this.servico.observacao">Sem observações</p>
+    </div>
+    <p class="text-center fw-bold">Situação: {{this.servico.situacao ? 'Disponível' : 'Indisponível'}}</p>
+</li>

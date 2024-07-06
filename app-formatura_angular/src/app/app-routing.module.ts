@@ -6,14 +6,16 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { CadastroTurmaComponent } from './components/turma/cadastro-turma/cadastro-turma.component';
 import { TurmaComponent } from './components/turma/turma/turma.component';
 import { BuscarTurmaComponent } from './components/turma/buscar-turma/buscar-turma.component';
+import { CadastroServicoComponent } from './components/servico/cadastro-servico/cadastro-servico.component';
 
 const routes: Routes = [
   {path: "login", component: EntrarComponent},
   {path: "login/cadastro", component: CadastroComponent},
   {path: "perfil/:id", component: PerfilComponent},
-  {path: "turma/cadastro", component: CadastroTurmaComponent},
-  {path: "turma/:id", component: TurmaComponent},
-  {path: "turma", component: BuscarTurmaComponent},
+  {path: "perfil/:usuario_id/turma/cadastro", component: CadastroTurmaComponent},
+  {path: "perfil/:usuario_id/turma/:turma_id", component: TurmaComponent},
+  {path: "perfil/:usuario_id/turma", component: BuscarTurmaComponent},
+  {path: "perfil/:usuario_id/turma/:turma_id/servico", component: CadastroServicoComponent},
   {path: "", redirectTo: "login", pathMatch: "full"}
 ];
 

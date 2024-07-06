@@ -1,20 +1,41 @@
-<div class="col-12">
-    <app-header [lastRoute]="this.lastRoute"></app-header>
+<div class="col-12" *ngIf="!this.isComissao">
+    <app-header [usuarioId]="this.usuarioId"></app-header>
     <div class="col-12">
         <h2 class="text-center py-3 fs-1">{{this.turma.nome}}</h2>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item border-0">
-                <p class="fs-5">Faculdade: {{this.turma.universidade}}</p>
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Faculdade:</p>
+                <p class="fs-5 ps-2 fst-italic">{{this.turma.universidade}}</p>
             </li>
-            <li class="list-group-item border-0">
-                <p class="fs-5">Formando: formando</p>
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Formando:</p>
+                <p class="fs-5 ps-2 fst-italic">{{this.usuario.nome}}</p>
             </li>
-            <li class="list-group-item border-0">
-                <p class="fs-5">Data do evento: data</p>
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Data do evento:</p>
+                <p class="fs-5 ps-2 fst-italic" *ngIf="this.turma.evento?.data">{{this.turma.evento?.data}}</p>
+                <p class="fs-5 ps-2 fst-italic" *ngIf="!this.turma.evento">Data indefinida</p>
             </li>
-            <li class="list-group-item border-0">
-                <p class="fs-5">Número de convidados: 999</p>
+            <li class="list-group-item border-0 d-flex">
+                <p class="fs-5 fw-bold">Número de convidados:</p>
+                <p class="fs-5 ps-2 fst-italic" *ngIf="this.turma.evento?.convidados">{{this.turma.evento?.convidados}}</p>
+                <p class="fs-5 ps-2 fst-italic" *ngIf="!this.turma.evento">Número de convidados indefinido</p>
             </li>
         </ul>
+        <div class="col-10 m-auto d-flex justify-content-center">
+            <a class="fst-italic text-secondary p-2 rounded">Ver parcelas</a>
+        </div>
+    </div>
+    <div class="col-12">
+        <h2 class="text-center py-3 fs-1">Detalhes da Turma</h2>
+        <ul class="list-group list-group-flush col-10 m-auto"
+            *ngIf="this.turmaHasEvento">
+            <app-servico-card *ngFor="let servico of this.evento.servicos"></app-servico-card>
+        </ul>
+        <p class="text-center text-secondary fst-italic">Sua turma ainda não tem nenhum evento!</p>
     </div>
 </div>
+<app-turma-comissao *ngIf="this.isComissao" 
+    [turma]="this.turma" 
+    [usuario]="this.usuario" 
+    [usuarioId]="this.usuarioId"></app-turma-comissao>

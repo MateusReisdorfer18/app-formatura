@@ -35,7 +35,7 @@ export class EventoService {
         servico_id,
         evento_id
       }
-    })
+    }).servico()
   }
 
   findAll() {
@@ -55,27 +55,6 @@ export class EventoService {
     });
   }
 
-  async findServicoByNome(evento_id: string, servico: ServicoDto) {
-    const eventoServico = await this.prismaService.evento_servico.findUnique({
-      where: {
-        evento_id_servico_id: {
-          evento_id,
-          servico_id: servico.servico_id
-        }
-      }
-    })
-
-    if(!eventoServico)
-      return null;
-
-    return this.prismaService.servico.findUnique({
-      where: {
-        id: servico.servico_id,
-        empresa: servico.nome_servico
-      }
-    });
-  }
-
   async findServico(evento_id: string, servico_id: string) {
     const eventoServico = await this.prismaService.evento_servico.findUnique({
       where: {
@@ -84,7 +63,7 @@ export class EventoService {
           servico_id
         }
       }
-    });
+    }).servico();
 
     if(!eventoServico)
       return null;
@@ -118,13 +97,15 @@ export class EventoService {
     if(!evento)
       return null;
     
-    return this.prismaService.evento.delete({
+    const eventoReturn = await this.prismaService.evento.delete({
       where: {id}
     });
+
+    return eventoReturn !== null;
   }
 
-  removeServico(evento_id: string, servico_id: string) {
-    return this.prismaService.evento_servico.delete({
+  async removeServico(evento_id: string, servico_id: string) {
+    const eventoServicoReturn = await this.prismaService.evento_servico.delete({
       where: {
         evento_id_servico_id: {
           evento_id,
@@ -132,5 +113,7 @@ export class EventoService {
         }
       }
     })
+
+    return eventoServicoReturn !== null;
   }
 }

@@ -33,15 +33,15 @@ model usuario {
   senha                 String
   cpf                   String
   status                Boolean             @default(true)
-  is_comissao            Boolean             @default(false)
+  is_comissao           Boolean             @default(false)
   TurmaComissao         turma[]             @relation(name: "comissao")
   Parcela               parcela[]
   Recibo                recibo[]            @relation(name: "comissao")
   recibos               recibo[]            @relation(name: "formando")
   numero_de_parcelas    numero_de_parcelas? @relation(fields: [numero_de_parcelas_id], references: [id])
   numero_de_parcelas_id String?
-  turma_alunos           turma?              @relation(name: "turmaAlunos", fields: [turma_id], references: [id])
-  turma_id               String?
+  turma_alunos          turma?              @relation(name: "turmaAlunos", fields: [turma_id], references: [id])
+  turma_id              String?
 }
 
 model turma {
@@ -55,23 +55,25 @@ model turma {
   estado_id    String
   status       Boolean   @default(true)
   alunos       usuario[] @relation(name: "turmaAlunos")
-  Recibos       recibo[]
+  Recibos      recibo[]
+  evento       evento?    @relation(fields: [evento_id], references: [id])
+  evento_id    String?
 }
 
 model servico {
-  id              String           @id @default(uuid())
-  tipo            tipo_servico     @relation(fields: [tipo_id], references: [id])
-  tipo_id         String
-  empresa         String
-  observacao      String?
-  cidade          String
-  estado          estado           @relation(fields: [estado_id], references: [id])
-  estado_id       String
+  id               String           @id @default(uuid())
+  tipo             tipo_servico     @relation(fields: [tipo_id], references: [id])
+  tipo_id          String
+  empresa          String
+  observacao       String?
+  cidade           String
+  estado           estado           @relation(fields: [estado_id], references: [id])
+  estado_id        String
   telefone_celular String
   telefone_fixo    String?
-  valor           Float
-  situacao        Boolean          @default(true)
-  EventoServico   evento_servico[]
+  valor            Float
+  situacao         Boolean          @default(true)
+  EventoServico    evento_servico[]
 }
 
 model evento {
@@ -80,6 +82,7 @@ model evento {
   convidados    Int
   valor         Float
   EventoServico evento_servico[]
+  turma         turma[]
 }
 
 model numero_de_parcelas {
@@ -105,7 +108,7 @@ model recibo {
   comissao    usuario  @relation(name: "comissao", fields: [comissao_id], references: [id])
   comissao_id String
   formando    usuario? @relation(name: "formando", fields: [formando_id], references: [id])
-  formando_id  String?
+  formando_id String?
 }
 
 model parcela {

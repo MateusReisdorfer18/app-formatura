@@ -39,12 +39,14 @@ export class ServicoService {
     if (!servico)
       return null;
 
-    return this.prismaService.servico.update({
+    const returnUpdate = await this.prismaService.servico.update({
       where: { id },
       data: {
         situacao: !servico.situacao
       }
     })
+
+    return returnUpdate !== null;
   }
 
   async remove(id: string) {

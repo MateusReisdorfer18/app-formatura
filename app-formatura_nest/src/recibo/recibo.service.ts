@@ -15,9 +15,11 @@ export class ReciboService {
     });
   }
 
-  delete(id: string) {
-    return this.prismaService.recibo.delete({
+  async delete(id: string) {
+     const returnDelete = await this.prismaService.recibo.delete({
       where: {id}
     })
+
+    return returnDelete !== null;
   }
 }

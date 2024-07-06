@@ -2,12 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UsuarioLoginDto } from './dto/usuario-login.dto';
 
 @Injectable()
 export class UsuarioService {
   constructor(private prismaService: PrismaService) {}
 
-  create(createUsuarioDto: CreateUsuarioDto) {
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    const usuarioExist = await this.prismaService.usuario.findFirst({
+      where: {
+        login: createUsuarioDto.login
+      }
+    })
+
+    if(usuarioExist)
+      return;
+    
     return this.prismaService.usuario.create({
       data: createUsuarioDto
     });
@@ -21,6 +31,15 @@ export class UsuarioService {
     return this.prismaService.usuario.findUnique({
       where: {id}
     });
+  }
+
+  async findByLoginAndSenha(usuarioLogin: UsuarioLoginDto) {
+    return this.prismaService.usuario.findFirst({
+      where: {
+        login: usuarioLogin.login,
+        senha: usuarioLogin.senha
+      }
+    })
   }
 
   findAllRecibos(usuario_id: string) {

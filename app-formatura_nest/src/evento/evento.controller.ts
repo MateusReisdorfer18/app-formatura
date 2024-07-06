@@ -33,11 +33,6 @@ export class EventoController {
     return this.eventoService.findAllServicos(evento_id);
   }
 
-  @Get(':evento_id/servico/nome')
-  findServicoByNome(@Param('evento_id') evento_id: string, @Body() servico: ServicoDto) {
-    return this.eventoService.findServicoByNome(evento_id, servico);
-  }
-
   @Get(':evento_id/servico/:servico_id')
   findServico(@Param('servico_id') servico_id: string, @Param('evento_id') evento_id: string) {
     return this.eventoService.findServico(evento_id, servico_id);

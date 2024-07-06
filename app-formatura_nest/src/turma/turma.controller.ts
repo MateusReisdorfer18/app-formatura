@@ -27,6 +27,11 @@ export class TurmaController {
     return this.turmaService.findAllAlunos(turma_id);
   }
 
+  @Get(':evento_id/evento')
+  findEvento(@Param('evento_id') turma_id: string) {
+    return this.turmaService.findEvento(turma_id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.turmaService.findOne(id);

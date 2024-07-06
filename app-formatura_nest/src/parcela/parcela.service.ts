@@ -66,8 +66,10 @@ export class ParcelaService {
     if(!parcela)
       return null;
     
-    return this.prismaService.parcela.delete({
+    const returnDelete = await this.prismaService.parcela.delete({
       where: {id}
     });
+
+    return returnDelete !== null;
   }
 }

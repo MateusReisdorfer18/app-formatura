@@ -17,9 +17,19 @@ export class TurmaService {
     if(!estado)
       return null;
 
-    return this.prismaService.turma.create({
+    const turma = await this.prismaService.turma.create({
       data: createTurmaDto
     })
+
+    await this.prismaService.usuario.update({
+      where: {id: createTurmaDto.comissao_id},
+      data: {
+        is_comissao: true,
+        turma_id: turma.id
+      }
+    })
+
+    return turma;
   }
 
   async addAluno(turma_id: string, aluno_id: string) {
@@ -46,6 +56,14 @@ export class TurmaService {
     })
   }
 
+  findEvento(evento_id: string) {
+    return this.prismaService.turma.findFirst({
+      where: {
+        evento_id
+      }
+    }).evento();
+  }
+
   findOne(id: string) {
     return this.prismaService.turma.findUnique({
       where: {id}
@@ -64,14 +82,6 @@ export class TurmaService {
   }
 
   async addComissao(comissao_id: string, turma_id: string) {
-    const aluno = await this.prismaService.usuario.findUnique({
-      where: {id: comissao_id, turma_id: turma_id}
-    })
-    const turma = await this.findOne(turma_id);
-
-    if(!aluno || !turma)
-      return null;
-
     await this.prismaService.usuario.update({
       where: {id: comissao_id},
       data: {
@@ -106,15 +116,11 @@ export class TurmaService {
   }
 
   async remove(id: string) {
-    const turma = await this.findOne(id);
-    if(!turma)
-      return false;
-
-    await this.prismaService.turma.delete({
+    const turmaRemoved = await this.prismaService.turma.delete({
       where: {id}
     });
 
-    return true;
+    return turmaRemoved !== null;
   }
 
   async removeAluno(turma_id: string, aluno_id: string) {
